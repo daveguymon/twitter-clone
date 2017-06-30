@@ -5,17 +5,13 @@ $(document).ready(function () {
     // hides tweet button and char count on page load
     $('#tweet-controls').hide();
     $('.tweet-actions li').hide();
-    $('.tweet').hover(function () {
-        $('.tweet-actions li', this).show();
-    }, function () {
-        $('.tweet-actions li', this).hide();
-    })
+
 
     // shows tweet button and char count when textarea is clicked
     // doubles size of textarea when clicked
-    $('textarea').on('click', function () {
+    $('.tweet-compose').on('click', function () {
         $('#tweet-controls').show();
-        $('.tweet-compose').css('height', '5em');
+        $(this).css('height', '5em');
     })
 
 
@@ -47,56 +43,70 @@ $(document).ready(function () {
     //    END OF - CONTROL CHARACTER COUNT WHEN USER TYPES STATUS
 
     $('#tweet-submit').on('click', function () {
+        
         var tweetContent = $('textarea').val();
-//        $('.tweet-actions li').hide();
 
         //put tweeted content in twitter feed
-        $('#stream').prepend(
-            '<div class="tweet" id="cloneMe">' +
-            '<div class="content">' +
-            '<img class="avatar" src = "img/alagoon.jpg"/>' +
-            '<strong class="fullname">Dave Guymon </strong>' +
-            '<span class="username">@DaveGuymon</span>' +
-            '<p class="tweet-text">' + tweetContent + '</p>' +
-            '<div class="tweet-actions">' +
-            '<ul>' +
-            '<li><span class="icon action-reply "></span> Reply</li>' +
-            '<li><span class="icon action-retweet "></span> Retweet</li>' +
-            '<li><span class="icon action-favorite "></span> Favorite</li>' +
-            '<li><span class="icon action-more "></span> More</li>' +
-            '</ul>' +
-            '</div>' +
-            '<div class="stats">' +
-            '<div class="retweets">' +
-            '<p class="num-retweets">30</p>' +
-            '<p>RETWEETS</p>' +
-            '</div>' +
-            '<div class="favorites">' +
-            '<p class="num-favorites">6</p>' +
-            '<p>FAVORITES</p>' +
-            '</div>' +
-            '<div class="users-interact">' +
-            '<div>' +
-            '<img src="img/jennyshen.jpg" />' +
-            '<img src="img/damenleeturks.jpg"/>' +
-            '</div>' +
-            '</div>' +
-            '<div class="time">1: 04 PM - 19 Sep 13 </div>' +
-            '</div>' +
-            '<div class="reply">' +
-            '<img class="avatar"src = "img/alagoon.jpg"/>' +
-            '<textarea class="tweet-compose" placeholder = "Reply to @DaveGuymon" / >' + '</textarea>' +
-            '</div>' +
-            '</div>' +
-            '</div>'
-        )
+        if (tweetContent) {
+            $('#stream').prepend(
+                '<div class="tweet" id="cloneMe">' +
+                '<div class="content">' +
+                '<img class="avatar" src = "img/alagoon.jpg"/>' +
+                '<strong class="fullname">Dave Guymon </strong>' +
+                '<span class="username">@DaveGuymon</span>' +
+                '<p class="tweet-text">' + tweetContent + '</p>' +
+                '<div class="tweet-actions">' +
+                '<ul>' +
+                '<li><span class="icon action-reply "></span> Reply</li>' +
+                '<li><span class="icon action-retweet "></span> Retweet</li>' +
+                '<li><span class="icon action-favorite "></span> Favorite</li>' +
+                '<li><span class="icon action-more "></span> More</li>' +
+                '</ul>' +
+                '</div>' +
+                '<div class="stats">' +
+                '<div class="retweets">' +
+                '<p class="num-retweets">30</p>' +
+                '<p>RETWEETS</p>' +
+                '</div>' +
+                '<div class="favorites">' +
+                '<p class="num-favorites">6</p>' +
+                '<p>FAVORITES</p>' +
+                '</div>' +
+                '<div class="users-interact">' +
+                '<div>' +
+                '<img src="img/jennyshen.jpg" />' +
+                '<img src="img/damenleeturks.jpg"/>' +
+                '</div>' +
+                '</div>' +
+                '<div class="time">1: 04 PM - 19 Sep 13 </div>' +
+                '</div>' +
+                '<div class="reply">' +
+                '<img class="avatar"src = "img/alagoon.jpg"/>' +
+                '<textarea class="tweet-compose" placeholder = "Reply to @DaveGuymon" / >' + '</textarea>' +
+                '</div>' +
+                '</div>' +
+                '</div>'
+            )
+            
+            $('.tweet-actions li').hide();
+            
+            
+        }
     });
 
-   $('.stats').hide();
-    $('.tweet').on('click', function(){
+
+    $('#stream').on('mouseenter', '.tweet', function () {
+        $('.tweet-actions li', this).show();
+    })
+
+    $('#stream').on('mouseleave', '.tweet', function () {
+        $('.tweet-actions li', this).hide();
+    })
+
+    $('#stream').on('click', '.tweet', function () {
         $('.stats', this).show();
     })
-    $('.tweet').on('dblclick', function(){
+    $('#stream').on('dblclick', '.tweet', function () {
         $('.stats', this).hide();
     })
 
